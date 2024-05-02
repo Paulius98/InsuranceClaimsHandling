@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Claims.IntegrationTests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "IntegrationTests"
+      }
+    }
+  }
+}
