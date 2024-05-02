@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Claims.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/v1/[controller]")]
 public class CoversController : ControllerBase
 {
     private readonly IMediator _mediator;

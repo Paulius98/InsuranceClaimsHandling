@@ -27,7 +27,7 @@ public static class ServiceRegistrations
             .AddDbContext<ClaimsContext>(options =>
             {
                 var client = new MongoClient(configuration.GetConnectionString("ClaimsDatabase"));
-                var database = client.GetDatabase(configuration["MongoDb:DatabaseName"]);
+                var database = client.GetDatabase(configuration["ClaimsDatabase:Name"]);
                 options.UseMongoDB(database.Client, database.DatabaseNamespace.DatabaseName);
             }).AddScoped<IClaimsContext, ClaimsContext>();
 

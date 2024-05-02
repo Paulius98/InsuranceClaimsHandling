@@ -3,7 +3,6 @@ using Claims.Application.Queues;
 using Claims.Extensions;
 using Claims.Infrastructure.Persistence;
 using Claims.MIddleware.Extensions;
-using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 

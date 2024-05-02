@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Claims.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/v1/[controller]")]
 public class ClaimsController : ControllerBase
 {
     private readonly IMediator _mediator;
