@@ -17,7 +17,6 @@ public static class ServiceRegistrations
 {
     public static IServiceCollection AddContexts(this IServiceCollection services, ConfigurationManager configuration)
     {
-
         services
             .AddDbContext<AuditContext>(options =>
             {
