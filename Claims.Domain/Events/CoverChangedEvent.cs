@@ -2,7 +2,7 @@
 
 namespace Claims.Domain.Events;
 
-public class CoverChangedEvent : Event
+public abstract class CoverChangedEvent : Event
 {
     public Cover Cover { get; }
 

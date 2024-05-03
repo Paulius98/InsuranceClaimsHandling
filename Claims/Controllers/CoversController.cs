@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Claims.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/covers")]
 public class CoversController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -19,24 +19,6 @@ public class CoversController : ControllerBase
     {
         _mediator = mediator;
         _logger = logger;
-    }
-
-    /// <summary>
-    /// Compute Premium Cover
-    /// </summary>
-    /// <param name="startDate">Start Date of Cover</param>
-    /// <param name="endDate">End Date of Cover</param>
-    /// <param name="coverType">Cover Type</param>
-    /// <returns></returns>
-    [HttpGet("compute")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<CoverPremiumResponseDto>> GetPremium(
-        [FromQuery] DateTimeOffset startDate,
-        [FromQuery] DateTimeOffset endDate,
-        [FromQuery] CoverType coverType)
-    {
-        var premium = await _mediator.Send(new GetCoverPremiumQuery(startDate, endDate, coverType));
-        return Ok(new CoverPremiumResponseDto { Premium = premium });
     }
 
     /// <summary>
@@ -62,6 +44,23 @@ public class CoversController : ControllerBase
         var cover = await _mediator.Send(new GetCoverByIdQuery(id));
         var result = CoverResponseDto.FromDomain(cover);
         return Ok(result);
+    }
+
+    /// <summary>
+    /// Compute Premium Cover
+    /// </summary>
+    /// <param name="startDate">Start Date of Cover</param>
+    /// <param name="endDate">End Date of Cover</param>
+    /// <param name="coverType">Cover Type</param>
+    [HttpGet("compute")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<CoverPremiumResponseDto>> GetPremium(
+        [FromQuery] DateTimeOffset startDate,
+        [FromQuery] DateTimeOffset endDate,
+        [FromQuery] CoverType coverType)
+    {
+        var premium = await _mediator.Send(new GetCoverPremiumQuery(startDate, endDate, coverType));
+        return Ok(new CoverPremiumResponseDto { Premium = premium });
     }
 
     /// <summary>

@@ -48,6 +48,24 @@ public class ClaimTests
     }
 
     [Theory, AutoMoqData]
+    public void ValidateDamageCost_ShouldThrowException_WhenDamageCostNegative(
+        Guid coverId,
+        DateTimeOffset created,
+        string name,
+        ClaimType type)
+    {
+        // Arrange
+        var damageCost = -1;
+        var claim = Claim.Create(coverId, created, name, type, damageCost);
+
+        // Act
+        void action() => claim.ValidateDamageCost();
+
+        // Assert
+        Assert.Throws<DamageCostNegativeException>(action);
+    }
+
+    [Theory, AutoMoqData]
     public void ValidateDate_ShouldThrowsException_WhenCreationDateNotInRange(
         Guid coverId,
         DateTimeOffset created,

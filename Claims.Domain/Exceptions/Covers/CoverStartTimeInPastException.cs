@@ -2,7 +2,7 @@
 
 public class CoverStartTimeInPastException : DomainException
 {
-    public CoverStartTimeInPastException() : base("The start time of the cover cannot be in the past.")
+    public CoverStartTimeInPastException() : base("Start time of the cover cannot be in the past.")
     {
     }
 }

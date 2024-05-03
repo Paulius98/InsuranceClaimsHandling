@@ -1,7 +1,6 @@
-﻿namespace Claims.Domain.Interfaces.Queues
+﻿namespace Claims.Domain.Interfaces.Queues;
+
+public interface IMessageReceiverHandler
 {
-    public interface IMessageReceiverHandler
-    {
-        Task<bool> ExecuteAsync(string message);
-    }
+    Task<bool> ExecuteAsync(string message);
 }

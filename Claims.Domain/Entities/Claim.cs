@@ -52,6 +52,10 @@ public class Claim : AggregateRoot
         {
             throw new DamageCostExceededException();
         }
+        if (DamageCost < 0)
+        {
+            throw new DamageCostNegativeException();
+        }
     }
 
     public void ValidateDate(DateTimeOffset startDate, DateTimeOffset endDate)

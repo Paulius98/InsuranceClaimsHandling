@@ -2,7 +2,7 @@
 
 public class ClaimCreationDateInvalidException : DomainException
 {
-    public ClaimCreationDateInvalidException() : base("The claim creation date is invalid.")
+    public ClaimCreationDateInvalidException() : base("Claim creation date is invalid.")
     {
     }
 }

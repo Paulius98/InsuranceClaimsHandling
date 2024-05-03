@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Claims.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/claims")]
 public class ClaimsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -49,7 +49,6 @@ public class ClaimsController : ControllerBase
     /// Create a new Claim
     /// </summary>
     /// <param name="request">Claim to Add</param>
-    /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<ClaimResponseDto>> CreateAsync([FromBody] ClaimRequestDto request)
@@ -70,7 +69,7 @@ public class ClaimsController : ControllerBase
     /// <summary>
     /// Delete Existing Claim
     /// </summary>
-    /// <param name="id">Unique Id of the Claim</param>
+    /// <param name="id">Unique Id of Claim</param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> DeleteAsync(Guid id)

@@ -1,7 +1,6 @@
-﻿namespace Claims.Models.Responses
+﻿namespace Claims.Models.Responses;
+
+public class CoverPremiumResponseDto
 {
-    public class CoverPremiumResponseDto
-    {
-        public decimal Premium { get; set; }
-    }
+    public decimal Premium { get; set; }
 }

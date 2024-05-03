@@ -15,7 +15,7 @@ public class ClaimsControllerTests : IntegrationTest
         // Arrange
 
         // Act
-        var response = await TestClient.GetAsync("/Claims");
+        var response = await TestClient.GetAsync(ApiRoutes.Claims);
         var result = await GetResultAsync<IEnumerable<ClaimResponseDto>>(response);
 
         // Assert
@@ -29,12 +29,12 @@ public class ClaimsControllerTests : IntegrationTest
     {
         // Arrange
         var claimRequest = await GetValidClaimRequestDtoAsync();
-        await TestClient.PostAsJsonAsync("/Claims", claimRequest);
-        await TestClient.PostAsJsonAsync("/Claims", claimRequest);
+        await TestClient.PostAsJsonAsync(ApiRoutes.Claims, claimRequest);
+        await TestClient.PostAsJsonAsync(ApiRoutes.Claims, claimRequest);
         var expectedItemsInCollection = 2;
 
         // Act
-        var response = await TestClient.GetAsync("/Claims");
+        var response = await TestClient.GetAsync(ApiRoutes.Claims);
         var result = await GetResultAsync<IEnumerable<ClaimResponseDto>>(response);
 
         // Assert
@@ -49,10 +49,10 @@ public class ClaimsControllerTests : IntegrationTest
     {
         // Arrange
         var claimRequest = await GetValidClaimRequestDtoAsync();
-        var claim = await GetResultAsync<ClaimResponseDto>(await TestClient.PostAsJsonAsync("/Claims", claimRequest));
+        var claim = await GetResultAsync<ClaimResponseDto>(await TestClient.PostAsJsonAsync(ApiRoutes.Claims, claimRequest));
 
         // Act
-        var response = await TestClient.GetAsync($"/Claims/{claim?.Id}");
+        var response = await TestClient.GetAsync($"{ApiRoutes.Claims}/{claim?.Id}");
         var result = await GetResultAsync<ClaimResponseDto>(response);
 
         // Assert
@@ -68,7 +68,7 @@ public class ClaimsControllerTests : IntegrationTest
         // Arrange
         var expectedStatusCode = HttpStatusCode.NotFound;
         // Act
-        var response = await TestClient.GetAsync($"/Claims/{Guid.NewGuid()}");
+        var response = await TestClient.GetAsync($"{ApiRoutes.Claims}/{Guid.NewGuid()}");
 
         // Assert
         Assert.Equal(expectedStatusCode, response.StatusCode);
@@ -81,7 +81,7 @@ public class ClaimsControllerTests : IntegrationTest
         var claimRequest = await GetValidClaimRequestDtoAsync();
 
         // Act
-        var response = await TestClient.PostAsJsonAsync("/Claims", claimRequest);
+        var response = await TestClient.PostAsJsonAsync(ApiRoutes.Claims, claimRequest);
         var result = await GetResultAsync<ClaimResponseDto>(response);
 
         // Assert
@@ -96,12 +96,12 @@ public class ClaimsControllerTests : IntegrationTest
     {
         // Arrange
         var claimRequest = await GetValidClaimRequestDtoAsync();
-        var claimToDeleteResponse = await TestClient.PostAsJsonAsync("/Claims", claimRequest);
+        var claimToDeleteResponse = await TestClient.PostAsJsonAsync(ApiRoutes.Claims, claimRequest);
         var claimToDelete = await GetResultAsync<ClaimResponseDto>(claimToDeleteResponse);
         var expectedStatusCode = HttpStatusCode.NoContent;
 
         // Act
-        var response = await TestClient.DeleteAsync($"/Claims/{claimToDelete?.Id}");
+        var response = await TestClient.DeleteAsync($"{ApiRoutes.Claims}/{claimToDelete?.Id}");
 
         // Assert
         Assert.Equal(expectedStatusCode, response.StatusCode);
@@ -116,7 +116,7 @@ public class ClaimsControllerTests : IntegrationTest
         var expectedStatusCode = HttpStatusCode.BadRequest;
 
         // Act
-        var response = await TestClient.PostAsJsonAsync("/Claims", claimRequest);
+        var response = await TestClient.PostAsJsonAsync(ApiRoutes.Claims, claimRequest);
 
         // Assert
         Assert.Equal(expectedStatusCode, response.StatusCode);
@@ -131,7 +131,7 @@ public class ClaimsControllerTests : IntegrationTest
         var expectedStatusCode = HttpStatusCode.BadRequest;
 
         // Act
-        var response = await TestClient.PostAsJsonAsync("/Claims", claimRequest);
+        var response = await TestClient.PostAsJsonAsync(ApiRoutes.Claims, claimRequest);
 
         // Assert
         Assert.Equal(expectedStatusCode, response.StatusCode);

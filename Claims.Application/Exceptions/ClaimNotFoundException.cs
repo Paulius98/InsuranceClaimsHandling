@@ -2,7 +2,7 @@
 
 public class ClaimNotFoundException : NotFoundException
 {
-    public ClaimNotFoundException() : base("The claim was not found.")
+    public ClaimNotFoundException() : base("Claim was not found.")
     {
     }
 }

@@ -2,7 +2,7 @@
 
 public class DamageCostExceededException : DomainException
 {
-    public DamageCostExceededException() : base("The damage cost exceeds the allowed limit.")
+    public DamageCostExceededException() : base("Damage cost exceeds the allowed limit.")
     {
     }
 }

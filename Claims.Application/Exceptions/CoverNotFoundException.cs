@@ -2,7 +2,7 @@
 
 internal class CoverNotFoundException : NotFoundException
 {
-    public CoverNotFoundException() : base("The cover was not found.")
+    public CoverNotFoundException() : base("Cover was not found.")
     {
     }
 }

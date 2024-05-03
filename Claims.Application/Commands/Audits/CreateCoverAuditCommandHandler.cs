@@ -12,6 +12,7 @@ public class CreateCoverAuditCommandHandler : INotificationHandler<CreateCoverAu
     {
         _repository = repository;
     }
+
     public async Task Handle(CreateCoverAuditCommand notification, CancellationToken cancellationToken)
     {
         var coverAudit = new CoverAudit()

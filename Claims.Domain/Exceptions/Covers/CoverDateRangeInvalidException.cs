@@ -2,7 +2,7 @@
 
 public class CoverDateRangeInvalidException : DomainException
 {
-    public CoverDateRangeInvalidException() : base("The cover date range is invalid.")
+    public CoverDateRangeInvalidException() : base("Cover date range is invalid.")
     {
     }
 }

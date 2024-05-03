@@ -71,7 +71,7 @@ public class IntegrationTest : IDisposable
 
     protected async Task<ClaimRequestDto> GetValidClaimRequestDtoAsync()
     {
-        var cover = await GetResultAsync<CoverResponseDto>(await TestClient.PostAsJsonAsync("/Covers", GetValidCoverRequestDto()));
+        var cover = await GetResultAsync<CoverResponseDto>(await TestClient.PostAsJsonAsync(ApiRoutes.Covers, GetValidCoverRequestDto()));
         return new ClaimRequestDto
         {
             CoverId = cover!.Id,

@@ -2,7 +2,6 @@
 using Claims.Domain.Enums;
 using Claims.Domain.Exceptions.Covers;
 using Claims.Domain.Tests.Shared;
-using System.Security.Claims;
 
 namespace Claims.Domain.Tests
 {

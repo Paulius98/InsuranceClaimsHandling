@@ -2,7 +2,7 @@
 
 public class CoverPeriodExceededException : DomainException
 {
-    public CoverPeriodExceededException() : base("The cover period exceeded.")
+    public CoverPeriodExceededException() : base("Cover period exceeded.")
     {
     }
 }

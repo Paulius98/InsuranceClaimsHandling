@@ -13,7 +13,7 @@ public class CoverControllerTests : IntegrationTest
         // Arrange
 
         // Act
-        var response = await TestClient.GetAsync("/Covers");
+        var response = await TestClient.GetAsync(ApiRoutes.Covers);
         var result = await GetResultAsync<IEnumerable<CoverResponseDto>>(response);
 
         // Assert
@@ -27,12 +27,12 @@ public class CoverControllerTests : IntegrationTest
     {
         // Arrange
         var coverRequest = GetValidCoverRequestDto();
-        await TestClient.PostAsJsonAsync("/Covers", coverRequest);
-        await TestClient.PostAsJsonAsync("/Covers", coverRequest);
+        await TestClient.PostAsJsonAsync(ApiRoutes.Covers, coverRequest);
+        await TestClient.PostAsJsonAsync(ApiRoutes.Covers, coverRequest);
         var expectedItemsInCollection = 2;
 
         // Act
-        var response = await TestClient.GetAsync("/Covers");
+        var response = await TestClient.GetAsync(ApiRoutes.Covers);
         var result = await GetResultAsync<IEnumerable<CoverResponseDto>>(response);
 
         // Assert
@@ -47,14 +47,14 @@ public class CoverControllerTests : IntegrationTest
     {
         // Arrange
         var coverRequest = GetValidCoverRequestDto();
-        var coverResponse = await TestClient.PostAsJsonAsync("/Covers", coverRequest);
+        var coverResponse = await TestClient.PostAsJsonAsync(ApiRoutes.Covers, coverRequest);
         var cover = await GetResultAsync<CoverResponseDto>(coverResponse);
         var expectedStartDate = cover?.StartDate;
         var expectedEndDate = cover?.EndDate;
         var expectedCoverId = cover?.Id;
 
         // Act
-        var response = await TestClient.GetAsync($"/Covers/{cover?.Id}");
+        var response = await TestClient.GetAsync($"{ApiRoutes.Covers}/{cover?.Id}");
         var result = await GetResultAsync<CoverResponseDto>(response);
 
         // Assert
@@ -72,7 +72,7 @@ public class CoverControllerTests : IntegrationTest
         // Arrange
         var expectedStatusCode = HttpStatusCode.NotFound;
         // Act
-        var response = await TestClient.GetAsync($"/Covers/{Guid.NewGuid()}");
+        var response = await TestClient.GetAsync($"{ApiRoutes.Covers}/{Guid.NewGuid()}");
 
         // Assert
         Assert.Equal(expectedStatusCode, response.StatusCode);
@@ -87,7 +87,7 @@ public class CoverControllerTests : IntegrationTest
         var expectedEndDate = coverRequest.EndDate;
 
         // Act
-        var response = await TestClient.PostAsJsonAsync("/Covers", coverRequest);
+        var response = await TestClient.PostAsJsonAsync(ApiRoutes.Covers, coverRequest);
         var result = await GetResultAsync<CoverResponseDto>(response);
 
         // Assert
@@ -103,12 +103,12 @@ public class CoverControllerTests : IntegrationTest
     {
         // Arrange
         var coverRequest = GetValidCoverRequestDto();
-        var coverToDeleteResponse = await TestClient.PostAsJsonAsync("/Covers", coverRequest);
+        var coverToDeleteResponse = await TestClient.PostAsJsonAsync(ApiRoutes.Covers, coverRequest);
         var coverToDelete = await GetResultAsync<CoverResponseDto>(coverToDeleteResponse);
         var expectedStatusCode = HttpStatusCode.NoContent;
 
         // Act
-        var response = await TestClient.DeleteAsync($"/Covers/{coverToDelete?.Id}");
+        var response = await TestClient.DeleteAsync($"{ApiRoutes.Covers}/{coverToDelete?.Id}");
 
         // Assert
         Assert.Equal(expectedStatusCode, response.StatusCode);
@@ -123,7 +123,7 @@ public class CoverControllerTests : IntegrationTest
         var expectedStatusCode = HttpStatusCode.BadRequest;
 
         // Act
-        var response = await TestClient.PostAsJsonAsync("/Covers", coverRequest);
+        var response = await TestClient.PostAsJsonAsync(ApiRoutes.Covers, coverRequest);
 
         // Assert
         Assert.Equal(expectedStatusCode, response.StatusCode);
@@ -138,7 +138,7 @@ public class CoverControllerTests : IntegrationTest
         var expectedStatusCode = HttpStatusCode.BadRequest;
 
         // Act
-        var response = await TestClient.PostAsJsonAsync("/Covers", coverRequest);
+        var response = await TestClient.PostAsJsonAsync(ApiRoutes.Covers, coverRequest);
 
         // Assert
         Assert.Equal(expectedStatusCode, response.StatusCode);
