@@ -17,18 +17,19 @@ public static class ServiceRegistrations
 {
     public static IServiceCollection AddContexts(this IServiceCollection services, ConfigurationManager configuration)
     {
+
         services
             .AddDbContext<AuditContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("AuditDatabase"));
             }).AddScoped<IAuditContext, AuditContext>();
 
+        var mongoClient = new MongoClient(configuration.GetConnectionString("ClaimsDatabase"));
+        var mongoDatabase = mongoClient.GetDatabase(configuration["ClaimsDatabase:Name"]);
         services
             .AddDbContext<ClaimsContext>(options =>
-            {
-                var client = new MongoClient(configuration.GetConnectionString("ClaimsDatabase"));
-                var database = client.GetDatabase(configuration["ClaimsDatabase:Name"]);
-                options.UseMongoDB(database.Client, database.DatabaseNamespace.DatabaseName);
+            { 
+                options.UseMongoDB(mongoDatabase.Client, mongoDatabase.DatabaseNamespace.DatabaseName);
             }).AddScoped<IClaimsContext, ClaimsContext>();
 
         return services;
