@@ -3,6 +3,7 @@
 This API provides endpoints for managing insurance claims and covers. It allows users to retrieve, create, and delete both claims and covers.
 
 # Prerequisites for local environment:
+- .NET 8 SDK
 - `Docker` and `docker-compose`
 - An Azure Subscription
 
