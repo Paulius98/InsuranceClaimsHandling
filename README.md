@@ -21,7 +21,6 @@ A list of tasks to improve the Insurance Claims Handling service:
 
 - Implement Authentication and Authorization.
 - Implement Pagination for GetAll HTTP Requests.
-- Consider using Azure Service Bus Topics with a publisher/subscriber architecture instead of Service Bus Queues (currently implemented with queues due to limitations in the lowest tier of Service Bus).
 - Implement Continuous Integration and Continuous Deployment (CI/CD).
 - Implement KeyVault for secrets management.
 - Implement Infrastructure as Code (IaC). 
