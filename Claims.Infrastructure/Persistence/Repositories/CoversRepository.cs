@@ -30,13 +30,11 @@ public class CoversRepository : ICoverRepository
     {
         _context.Covers.Add(cover);
         await _context.SaveContextChangesAsync();
-        await _context.EmitEventsAsync(cover);
     }
 
     public async Task DeleteAsync(Cover cover, CancellationToken cancellationToken = default)
     {
         _context.Covers.Remove(cover);
         await _context.SaveContextChangesAsync();
-        await _context.EmitEventsAsync(cover);
     }
 }

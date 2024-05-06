@@ -1,5 +1,5 @@
 using Claims;
-using Claims.Application.Queues;
+using Claims.Application.Queues.Models;
 using Claims.Extensions;
 using Claims.Infrastructure.Persistence;
 using Claims.MIddleware.Extensions;

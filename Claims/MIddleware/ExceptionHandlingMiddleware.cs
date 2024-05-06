@@ -1,7 +1,7 @@
 ﻿using Claims.Application.Exceptions;
 using Claims.Domain.Exceptions;
-using Newtonsoft.Json;
 using System.Net;
+using System.Text.Json;
 
 namespace Claims.MIddleware;
 
@@ -40,7 +40,7 @@ public class ExceptionHandlingMiddleware
             }
 
             context.Response.ContentType = "application/json";
-            await context.Response.WriteAsync(JsonConvert.SerializeObject(new ExceptionResponse { Message = ex.Message }));
+            await context.Response.WriteAsync(JsonSerializer.Serialize(new ExceptionResponse { Message = ex.Message }));
         }
     }
 }

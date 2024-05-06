@@ -1,6 +1,4 @@
-﻿using Claims.Application.Queues.Models;
-
-namespace Claims.Application.Queues;
+﻿namespace Claims.Application.Queues.Models;
 
 public class CoverAuditQueueMessage : QueueMessage
 {

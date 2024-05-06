@@ -1,5 +1,7 @@
+using Claims.Application.Commands.Audits;
 using Claims.Application.Commands.Claims;
 using Claims.Application.Queries.Claims;
+using Claims.Domain.Enums;
 using Claims.Models.Requests;
 using Claims.Models.Responses;
 using MediatR;
@@ -60,6 +62,8 @@ public class ClaimsController : ControllerBase
             request.Type, 
             request.DamageCost));
 
+        await _mediator.Publish(new PublishClaimAuditCommand(claim.Id, HttpRequestMethodType.POST));
+
         var result = ClaimResponseDto.FromDomain(claim);
 
         _logger.LogInformation($"Claim was created. {result}");
@@ -75,6 +79,7 @@ public class ClaimsController : ControllerBase
     public async Task<ActionResult> DeleteAsync(Guid id)
     {
         await _mediator.Publish(new DeleteClaimCommand(id));
+        await _mediator.Publish(new PublishClaimAuditCommand(id, HttpRequestMethodType.DELETE));
 
         _logger.LogInformation($"Claim with {id} id was deleted");
         return NoContent();

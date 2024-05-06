@@ -30,13 +30,11 @@ public class ClaimsRepository : IClaimsRepository
     {
         _context.Claims.Add(claim);
         await _context.SaveContextChangesAsync(cancellationToken);
-        await _context.EmitEventsAsync(claim, cancellationToken);
     }
 
     public async Task DeleteAsync(Claim claim, CancellationToken cancellationToken = default)
     {
         _context.Claims.Remove(claim);
         await _context.SaveContextChangesAsync();
-        await _context.EmitEventsAsync(claim);
     }
 }

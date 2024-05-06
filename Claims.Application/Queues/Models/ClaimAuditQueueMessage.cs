@@ -1,6 +1,6 @@
 ﻿using Claims.Application.IntegrationEventHandlers.Models;
 
-namespace Claims.Application.Queues;
+namespace Claims.Application.Queues.Models;
 
 public class ClaimAuditQueueMessage : QueueMessage
 {

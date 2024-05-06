@@ -1,3 +1,4 @@
+using Claims.Application.Commands.Audits;
 using Claims.Application.Commands.Covers;
 using Claims.Application.Queries.Covers;
 using Claims.Domain.Enums;
@@ -76,6 +77,8 @@ public class CoversController : ControllerBase
             request.EndDate,
             request.Type));
 
+        await _mediator.Publish(new PublishCoverAuditCommand(cover.Id, HttpRequestMethodType.POST));
+
         var result = CoverResponseDto.FromDomain(cover);
         _logger.LogInformation($"Cover was created. {result}");
         return Ok(result);
@@ -90,6 +93,7 @@ public class CoversController : ControllerBase
     public async Task<ActionResult> DeleteAsync(Guid id)
     {
         await _mediator.Publish(new DeleteCoverCommand(id));
+        await _mediator.Publish(new PublishCoverAuditCommand(id, HttpRequestMethodType.DELETE));
 
         _logger.LogInformation($"Cover with {id} id was deleted");
         return NoContent();

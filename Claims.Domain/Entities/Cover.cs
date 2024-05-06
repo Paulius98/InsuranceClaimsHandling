@@ -1,13 +1,12 @@
 ﻿using Claims.Domain.Calculations;
 using Claims.Domain.Enums;
-using Claims.Domain.Events;
 using Claims.Domain.Exceptions.Covers;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Claims.Domain.Entities;
 
-public class Cover : AggregateRoot
+public class Cover
 {
     [BsonId]
     public Guid Id { get; private set; }
@@ -35,18 +34,11 @@ public class Cover : AggregateRoot
         EndDate = endDate;
         Type = type;
         Premium = PremiumCalculator.Compute(startDate, endDate, type);
-
-        AddEvent(new CoverCreatedEvent(this, DateTimeOffset.UtcNow));
     }
 
     public static Cover Create(DateTimeOffset startDate, DateTimeOffset endDate, CoverType type)
     {
         return new Cover(startDate, endDate, type);
-    }
-
-    public void Delete()
-    {
-        AddEvent(new CoverDeletedEvent(this, DateTimeOffset.UtcNow));
     }
 
     public void ValidateDateRange()

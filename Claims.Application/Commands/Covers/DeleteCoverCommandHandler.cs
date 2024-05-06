@@ -25,7 +25,6 @@ public class DeleteCoverCommandHandler : INotificationHandler<DeleteCoverCommand
             throw new CoverNotFoundException();
         }
         
-        cover.Delete();
         await _repository.DeleteAsync(cover, cancellationToken);
     }
 }

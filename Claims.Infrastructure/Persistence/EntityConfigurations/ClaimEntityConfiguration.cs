@@ -10,7 +10,5 @@ internal class ClaimEntityConfiguration : IEntityTypeConfiguration<Claim>
     public void Configure(EntityTypeBuilder<Claim> builder)
     {
         builder.ToCollection("claims");
-
-        builder.Ignore(c => c.DomainEvents);
     }
 }

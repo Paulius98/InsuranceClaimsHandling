@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Claims.Application.Commands.Audits;
 
-public class CreateClaimAuditCommandHandler : INotificationHandler<CreateClaimAuditCommand>
+public class CreateClaimAuditCommandHandler : IRequestHandler<CreateClaimAuditCommand, ClaimAudit>
 {
     private readonly IClaimAuditRepository _repository;
 
@@ -13,15 +13,17 @@ public class CreateClaimAuditCommandHandler : INotificationHandler<CreateClaimAu
         _repository = repository;
     }
 
-    public async Task Handle(CreateClaimAuditCommand notification, CancellationToken cancellationToken)
+    public async Task<ClaimAudit> Handle(CreateClaimAuditCommand notification, CancellationToken cancellationToken)
     {
         var claimAudit = new ClaimAudit()
         {
-            Created = DateTimeOffset.Now,
+            Created = DateTimeOffset.UtcNow,
             HttpRequestType = notification.HttpRequestMethodType,
             ClaimId = notification.ClaimId
         };
 
         await _repository.AddAsync(claimAudit, cancellationToken);
+
+        return claimAudit;
     }
 }

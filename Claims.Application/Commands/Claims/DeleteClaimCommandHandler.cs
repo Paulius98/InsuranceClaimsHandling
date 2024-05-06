@@ -24,7 +24,6 @@ public class DeleteClaimCommandHandler : INotificationHandler<DeleteClaimCommand
             throw new CoverNotFoundException();
         }
 
-        claim.Delete();
         await _repository.DeleteAsync(claim, cancellationToken);
     }
 }

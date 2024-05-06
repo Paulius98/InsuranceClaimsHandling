@@ -1,12 +1,11 @@
 ﻿using Claims.Domain.Enums;
-using Claims.Domain.Events;
 using Claims.Domain.Exceptions.Claims;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Claims.Domain.Entities;
 
-public class Claim : AggregateRoot
+public class Claim
 {
     [BsonId]
     public Guid Id { get; private set; }
@@ -37,8 +36,6 @@ public class Claim : AggregateRoot
         Name = name; 
         Type = type;
         DamageCost = damageCost;
-
-        AddEvent(new ClaimCreatedEvent(this, DateTimeOffset.UtcNow));
     }
 
     public static Claim Create(Guid coverId, DateTimeOffset created, string name, ClaimType type, decimal damageCost)
@@ -64,10 +61,5 @@ public class Claim : AggregateRoot
         {
             throw new ClaimCreationDateInvalidException();
         }
-    }
-
-    public void Delete()
-    {
-        AddEvent(new ClaimDeletedEvent(this, DateTimeOffset.UtcNow));
     }
 }

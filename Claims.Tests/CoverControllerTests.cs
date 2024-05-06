@@ -1,4 +1,7 @@
-﻿using Claims.Models.Responses;
+﻿using Claims.Application.Queues.Models;
+using Claims.Domain.Interfaces.Queues;
+using Claims.Models.Responses;
+using Moq;
 using System.Net;
 using System.Net.Http.Json;
 using Xunit;

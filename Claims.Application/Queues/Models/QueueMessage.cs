@@ -1,4 +1,4 @@
-﻿namespace Claims.Application.Queues;
+﻿namespace Claims.Application.Queues.Models;
 
 public abstract class QueueMessage
 {

@@ -10,7 +10,5 @@ internal class CoverEntityConfiguration : IEntityTypeConfiguration<Cover>
     public void Configure(EntityTypeBuilder<Cover> builder)
     {
         builder.ToCollection("covers");
-
-        builder.Ignore(c => c.DomainEvents);
     }
 }
