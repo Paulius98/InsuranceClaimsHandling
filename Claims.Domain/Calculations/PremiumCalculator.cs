@@ -11,7 +11,7 @@ public static class PremiumCalculator
     public static decimal Compute(DateTimeOffset startDate, DateTimeOffset endDate, CoverType coverType)
     {
 
-        var multiplier = GetMultiplierByCoverType(coverType);
+        var multiplier = CoverTypeRates.GetRateByCoverType(coverType);
         var premiumPerDay = _baseDayRate * multiplier;
         var insuranceTotalDays = (int)(endDate - startDate).TotalDays;
 
@@ -31,38 +31,27 @@ public static class PremiumCalculator
 
     private static decimal FirstTierTotalPremiumPrice(int insuranceTotalDays, decimal premiumPerDay)
     {
-        if (insuranceTotalDays <= 0) return 0m;
-        var days = Math.Min(insuranceTotalDays, _firstTierDays);
-        return premiumPerDay * days;
+        return CalculateTierPremium(insuranceTotalDays, _firstTierDays, premiumPerDay);
     }
 
     private static decimal SecondTierPremiumPrice(int insuranceTotalDays, decimal premiumPerDay, CoverType coverType)
     {
-        insuranceTotalDays -= _firstTierDays;
-        if (insuranceTotalDays <= 0) return 0m;
-        var days = Math.Min(insuranceTotalDays, _secontTierDays);
-        return premiumPerDay * days * (coverType == CoverType.Yacht ? 0.95m : 0.98m);
+        var insuranceDays = insuranceTotalDays - _firstTierDays;
+        var discountFactor = CoverTypeDiscountRates.GetSecondTierRateByCoverType(coverType);
+        return CalculateTierPremium(insuranceDays, _secontTierDays, premiumPerDay, discountFactor);
     }
 
     private static decimal ThirdTierPremiumPrice(int insuranceTotalDays, decimal premiumPerDay, CoverType coverType)
     {
-        insuranceTotalDays -= _firstTierDays + _secontTierDays;
-        if (insuranceTotalDays <= 0) return 0m;
-        return premiumPerDay * insuranceTotalDays * (coverType == CoverType.Yacht ? 0.92m : 0.97m);
+        var insuranceDays = insuranceTotalDays - (_firstTierDays + _secontTierDays);
+        var discountFactor = CoverTypeDiscountRates.GetThirdTierRateByCoverType(coverType);
+        return CalculateTierPremium(insuranceDays, insuranceDays, premiumPerDay, discountFactor);
     }
 
-    private static decimal GetMultiplierByCoverType(CoverType coverType)
+    private static decimal CalculateTierPremium(int insuranceDays, int tierDays, decimal premiumPerDay, decimal discountFactor = 1.00m)
     {
-        switch (coverType)
-        {
-            case CoverType.Yacht:
-                return CoverTypeRates.Yacht;
-            case CoverType.PassengerShip:
-                return CoverTypeRates.PassengerShip;
-            case CoverType.Tanker:
-                return CoverTypeRates.Tanker;
-            default:
-                return CoverTypeRates.Other;
-        }
+        if (insuranceDays <= 0) return 0m;
+        int days = Math.Min(insuranceDays, tierDays);
+        return premiumPerDay * days * discountFactor;
     }
 }
