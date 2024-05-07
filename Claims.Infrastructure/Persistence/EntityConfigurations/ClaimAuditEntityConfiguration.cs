@@ -8,7 +8,7 @@ internal class ClaimAuditEntityConfiguration : IEntityTypeConfiguration<ClaimAud
 {
     public void Configure(EntityTypeBuilder<ClaimAudit> builder)
     {
-        builder.ToTable("ClaimAudits", "dbo");
+        builder.ToTable(EntityConfiguration.ClaimAuditTableName, EntityConfiguration.DefaultSchema);
         builder.HasKey(ca => ca.Id);
 
         builder.Property(ca => ca.ClaimId)

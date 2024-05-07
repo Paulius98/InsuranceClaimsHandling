@@ -8,7 +8,7 @@ internal class CoverAuditEntityConfiguration : IEntityTypeConfiguration<CoverAud
 {
     public void Configure(EntityTypeBuilder<CoverAudit> builder)
     {
-        builder.ToTable("CoverAudits", "dbo");
+        builder.ToTable(EntityConfiguration.CoverAuditTableName, EntityConfiguration.DefaultSchema);
         builder.HasKey(ca => ca.Id);
 
         builder.Property(ca => ca.CoverId)
